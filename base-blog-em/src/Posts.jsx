@@ -9,6 +9,11 @@ export function Posts() {
   const  deleteMutation = useMutation({
     mutationFn:(postId) => deletePost(postId)
   })
+
+  const updateMutation = useMutation({
+    mutationFn:(postId) => updatePost(postId)
+  })
+
   const queryClient = useQueryClient()
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -54,6 +59,7 @@ export function Posts() {
             onClick={() => {
               setSelectedPost(post)
               deleteMutation.reset()
+              updateMutation.reset()
             }}
           >
             {post.title}
@@ -81,7 +87,7 @@ export function Posts() {
         </button>
       </div>
       <hr />
-      {selectedPost && <PostDetail post={selectedPost} deleteMutation={deleteMutation}/>}
+      {selectedPost && <PostDetail post={selectedPost} deleteMutation={deleteMutation} updateMutation={updateMutation} />}
     </>
   );
 }
